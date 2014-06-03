@@ -62,7 +62,7 @@ func main() {
 }
 
 func usage() {
-	fmt.Fprintf(os.Stderr, "usage: statsd-traffic-loader [-sp] hostname\n")
+	fmt.Fprintf(os.Stderr, "usage: statsd-traffic-loader [-cpst] hostname\n")
 	flag.PrintDefaults()
 	os.Exit(1)
 }
