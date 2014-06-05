@@ -54,7 +54,6 @@ func main() {
 		fmt.Printf("Error reading timers file: %v\n", err)
 		os.Exit(1)
 	}
-	fmt.Println("double_metrics is ", *double_metrics)
 	if (*double_metrics) {
 		counters = doubleMetrics(counters)
 		timers = doubleMetrics(timers)
