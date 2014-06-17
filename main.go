@@ -30,6 +30,7 @@ func main() {
 	port := flag.Int("p", 8125, "port to send to")
 	counters_file := flag.String("c", "stats_counter_keys.txt", "file with example counter keys")
 	timers_file := flag.String("t", "stats_timer_keys.txt", "file with example timer keys")
+	double_metrics := flag.Bool("d", false, "double the amount of metrics sent")
 
 	flag.Usage = usage
 
@@ -53,7 +54,11 @@ func main() {
 		fmt.Printf("Error reading timers file: %v\n", err)
 		os.Exit(1)
 	}
-
+	if (*double_metrics) {
+		counters = doubleMetrics(counters)
+		timers = doubleMetrics(timers)
+	}
+	fmt.Printf("Loaded %d counters and %d timers.\n", len(counters), len(timers))
 	fmt.Printf("Sending %d packets/s to %s on port %d.\n",
 		*packet_rate, hostname, *port)
 	ticker := time.NewTicker(time.Second)
@@ -124,4 +129,14 @@ func readLines(path string) ([]string, error) {
 		lines = append(lines, scanner.Text())
 	}
 	return lines, scanner.Err()
+}
+
+func doubleMetrics(metrics []string) ([]string) {
+	metrics2 := make ([]string, len(metrics), (cap(metrics)+1))
+	copy(metrics2, metrics)
+	for index,element := range metrics {
+		metrics[index] = element + "2"
+	}
+	metrics2 = append(metrics2, metrics...)	
+	return metrics2
 }
