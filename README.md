@@ -1,5 +1,7 @@
 # statsd traffic loader
 
+## This project is unmaintained. YMMV
+
 ## Overview
 CLI script to generate traffic for a statsd instance with configurable rates.
 It also has the ability to load metrics key names from a file.
